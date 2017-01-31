@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args){
+
         String[][] board = new String[8][8];
         String empty = "□";
         String black = "●";
@@ -13,7 +14,8 @@ public class Main {
         String Your_stone = judge_opposition(My_stone); //自分の決めた石と反対の石を出力している
 
         Board I = new I("自分","○");
-        Board You = new I("相手","●");
+
+        Board You = new You("相手","●");
 
         System.out.printf("%sの石は%sです\n",I.getName(),My_stone);
 

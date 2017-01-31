@@ -7,8 +7,10 @@ public class Board {
     private String stone;
 
     public Board(String name,String stone) {
+
         this.name = name;
         this.stone = stone;
+
     }
 
     public String getName() {return name;}

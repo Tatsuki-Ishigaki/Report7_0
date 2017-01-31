@@ -4,6 +4,7 @@ public class You extends Board {
     public You (String name, String stone) {super(name,stone);}
 
     public void input(String[][] board, String stone) {
+
         boolean n = put_judge2(board,stone);
         if(n==true){
             int S = (int) (Math.random() * 8);

@@ -4,6 +4,7 @@ public class I extends Board {
     public I (String name, String stone) {super(name,stone);}
 
     public void input(String[][] board, String stone) {
+
         try {
             boolean n = put_judge2(board,stone);
             if(n==true){
