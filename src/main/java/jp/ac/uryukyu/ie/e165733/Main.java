@@ -13,16 +13,16 @@ public class Main {
         String My_stone = judge(black,white); //自分の石をランダムで決めている
         String Your_stone = judge_opposition(My_stone); //自分の決めた石と反対の石を出力している
 
-        Board I = new You("自分",My_stone);
+        Board I = new I("自分",My_stone);
         Board You = new You("相手",Your_stone);
 
         System.out.println("対戦モードを選択してもらいます");
         System.out.println("Player対CPUなら 0 を入力してください");
         System.out.println("Player対Playerなら 1 を入力してください");
         System.out.println("CPU対CPUなら 2 を入力してください");
-        //int scan = scan();
-        //I = select(scan,I,My_stone);
-        //You = select_2(scan,You,Your_stone);
+        int scan = scan();
+        I = select(scan,I,My_stone);
+        You = select_2(scan,You,Your_stone);
 
 
         System.out.printf("%sの石は%sです\n",I.getName(),My_stone);
