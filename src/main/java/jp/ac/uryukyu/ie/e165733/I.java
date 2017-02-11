@@ -14,9 +14,8 @@ public class I extends Board {
                 number = scan();
                 System.out.println("次に横をを入力してください");
                 number_2 = scan();
-                boolean s = search(board, number, number_2);
                 boolean t = put_judge(board,number,number_2,stone);
-                if (s == true && t == true) {
+                if (t == true) {
                     board[number][number_2] = stone;
                     reverse(board, number, number_2, stone);
                 }else{

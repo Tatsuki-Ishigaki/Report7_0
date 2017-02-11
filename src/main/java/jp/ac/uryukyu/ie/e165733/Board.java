@@ -42,60 +42,73 @@ public class Board {
         }
     }
 
+    public static boolean put_direction(String[][] board,int a,int b,int c,int d,String stone){
+        if (range(board, a+c, b+d) == true) {
+            if (board[a+c][b+d] != stone && board[a+c][b+d] != "□") {
+                    while (range(board, a + c, b + d) == true && board[a + c][b + d] != "□") {
+                    if (board[a + c][b + d] == stone) {
+                        return true;
+                    }
+                    if (c < 0 && d < 0) {
+                        c--;
+                        d--;
+                    }
+                    if (c < 0 && d == 0) {
+                        c--;
+                    }
+                    if (c < 0 && d > 0) {
+                        c--;
+                        d++;
+                    }
+                    if (c == 0 && d < 0) {
+                        d--;
+                    }
+                    if (c == 0 && d > 0) {
+                        d++;
+                    }
+                    if (c > 0 && d < 0) {
+                        c++;
+                        d--;
+                    }
+                    if (c > 0 && d == 0) {
+                        c++;
+                    }
+                    if (c > 0 && d > 0) {
+                        c++;
+                        d++;
+                    }
+                }
+
+            }
+        }
+        return false;
+    }
+
     public static boolean put_judge(String[][] board,int a,int b,String stone){
-        if (range(board, a - 1, b - 1) == true) {
-            if (board[a - 1][b - 1] != stone && board[a - 1][b - 1] != "□") {
-                if (put_judge3(board, a, b, -1, -1, stone) == true) {
-                    return true;
-                }
+        if(search(board,a,b)==true) {
+            if (put_direction(board, a, b, -1, -1, stone) == true) {
+                return true;
             }
-        }
-        if (range(board, a - 1, b) == true) {
-            if (board[a - 1][b] != stone && board[a - 1][b] != "□") {
-                if (put_judge7(board, a, b, -1, 0, stone) == true) {
-                    return true;
-                }
+            if (put_direction(board, a, b, -1, 0, stone) == true) {
+                return true;
             }
-        }
-        if (range(board, a - 1, b + 1) == true) {
-            if (board[a - 1][b + 1] != stone && board[a - 1][b + 1] != "□") {
-                if (put_judge5(board, a, b, -1, 1, stone) == true) {
-                    return true;
-                }
+            if (put_direction(board, a, b, -1, 1, stone) == true) {
+                return true;
             }
-        }
-        if (range(board, a, b - 1) == true) {
-            if (board[a][b - 1] != stone && board[a][b - 1] != "□") {
-                if (put_judge9(board, a, b, 0, -1, stone) == true) {
-                    return true;
-                }
+            if (put_direction(board, a, b, 0, -1, stone) == true) {
+                return true;
             }
-        }
-        if (range(board, a, b + 1) == true) {if (board[a][b + 1] != stone && board[a][b + 1] != "□") {
-                if (put_judge10(board, a, b, 0, 1, stone) == true) {
-                    return true;
-                }
+            if (put_direction(board, a, b, 0, 1, stone) == true) {
+                return true;
             }
-        }
-        if (range(board, a + 1, b - 1) == true) {
-            if (board[a + 1][b - 1] != stone && board[a + 1][b - 1] != "□") {
-                if (put_judge6(board, a, b, 1, -1, stone) == true) {
-                    return true;
-                }
+            if (put_direction(board, a, b, 1, -1, stone) == true) {
+                return true;
             }
-        }
-        if (range(board, a + 1, b) == true) {
-            if (board[a + 1][b] != stone && board[a + 1][b] != "□") {
-                if (put_judge8(board, a, b, 1, 0, stone) == true) {
-                    return true;
-                }
+            if (put_direction(board, a, b, 1, 0, stone) == true) {
+                return true;
             }
-        }
-        if (range(board, a + 1, b + 1) == true) {
-            if (board[a + 1][b + 1] != stone && board[a + 1][b + 1] != "□") {
-                if (put_judge4(board, a, b, 1, 1, stone) == true) {
-                    return true;
-                }
+            if (put_direction(board, a, b, 1, 1, stone) == true) {
+                return true;
             }
         }
         return false;
@@ -104,96 +117,10 @@ public class Board {
     public static boolean put_judge2(String[][] board,String stone){
         for(int a=0;a<8;a++){
             for(int b=0;b<8;b++){
-                if(search(board,a,b)==true) {
-                    if (put_judge(board, a, b, stone) == true) {
-                        return true;
-                    }
+                if (put_judge(board, a, b, stone) == true) {
+                    return true;
                 }
             }
-        }
-        return false;
-    }
-
-    public static boolean put_judge3(String[][] board,int a,int b,int c,int d,String stone){
-        while(range(board,a+c,b+d)==true && board[a+c][b+d]!="□"){
-            if(board[a+c][b+d]==stone){
-                return true;
-            }
-            c--;
-            d--;
-        }
-        return false;
-    }
-
-    public static boolean put_judge4(String[][] board,int a,int b,int c,int d,String stone){
-        while(range(board,a+c,b+d)==true && board[a+c][b+d]!="□"){
-            if(board[a+c][b+d]==stone){
-                return true;
-            }
-            c++;
-            d++;
-        }
-        return false;
-    }
-
-    public static boolean put_judge5(String[][] board,int a,int b,int c,int d,String stone){
-        while(range(board,a+c,b+d)==true && board[a+c][b+d]!="□"){
-            if(board[a+c][b+d]==stone){
-                return true;
-            }
-            c--;
-            d++;
-        }
-        return false;
-    }
-
-    public static boolean put_judge6(String[][] board,int a,int b,int c,int d,String stone){
-        while(range(board,a+c,b+d)==true && board[a+c][b+d]!="□"){
-            if(board[a+c][b+d]==stone){
-                return true;
-            }
-            c++;
-            d--;
-        }
-        return false;
-    }
-
-    public static boolean put_judge7(String[][] board,int a,int b,int c,int d,String stone){
-        while(range(board,a+c,b+d)==true && board[a+c][b+d]!="□"){
-            if(board[a+c][b+d]==stone){
-                return true;
-            }
-            c--;
-        }
-        return false;
-    }
-
-    public static boolean put_judge8(String[][] board,int a,int b,int c,int d,String stone){
-        while(range(board,a+c,b+d)==true && board[a+c][b+d]!="□"){
-            if(board[a+c][b+d]==stone){
-                return true;
-            }
-            c++;
-        }
-        return false;
-    }
-
-    public static boolean put_judge9(String[][] board,int a,int b,int c,int d,String stone){
-        while(range(board,a+c,b+d)==true && board[a+c][b+d]!="□"){
-            if(board[a+c][b+d]==stone){
-                return true;
-            }
-            d--;
-        }
-        return false;
-    }
-
-    public static boolean put_judge10(String[][] board,int a,int b,int c,int d,String stone){
-        while(range(board,a+c,b+d)==true && board[a+c][b+d]!="□"){
-            if(board[a+c][b+d]==stone){
-                return true;
-            }
-            d++;
         }
         return false;
     }
@@ -201,74 +128,49 @@ public class Board {
     public void input(String[][] board,String stone) {
     }
 
+    public static void reverse_direction(String[][] board,int a,int b,int c,int d,String stone) {
+        if (put_direction(board, a, b, c, d, stone) == true) {
+            while (board[a + c][b + d] != stone) {
+                board[a + c][b + d] = stone;
+                if (c < 0 && d < 0) {
+                    c--;
+                    d--;
+                }
+                if (c < 0 && d == 0) {
+                    c--;
+                }
+                if (c < 0 && d > 0) {
+                    c--;
+                    d++;
+                }
+                if (c == 0 && d < 0) {
+                    d--;
+                }
+                if (c == 0 && d > 0) {
+                    d++;
+                }
+                if (c > 0 && d < 0) {
+                    c++;
+                    d--;
+                }
+                if (c > 0 && d == 0) {
+                    c++;
+                }
+                if (c > 0 && d > 0) {
+                    c++;
+                    d++;
+                }
+            }
+        }
+    }
     public static void reverse(String[][] board,int a,int b,String stone){
-        if(put_judge3(board,a,b,-1,-1,stone)==true){
-            int c=-1;
-            int d=-1;
-            while(board[a+c][b+d]!=stone){
-                board[a+c][b+d]=stone;
-                c--;
-                d--;
-            }
-        }
-        if(put_judge7(board,a,b,-1,0,stone)==true){
-            int c=-1;
-            int d=0;
-            while(board[a+c][b+d]!=stone){
-                board[a+c][b+d]=stone;
-                c--;
-            }
-        }
-        if(put_judge5(board,a,b,-1,1,stone)==true){
-            int c=-1;
-            int d=1;
-            while(board[a+c][b+d]!=stone){
-                board[a+c][b+d]=stone;
-                c--;
-                d++;
-            }
-        }
-        if(put_judge9(board,a,b,0,-1,stone)==true){
-            int c=0;
-            int d=-1;
-            while(board[a+c][b+d]!=stone){
-                board[a+c][b+d]=stone;
-                d--;
-            }
-        }
-        if(put_judge10(board,a,b,0,1,stone)==true){
-            int c=0;
-            int d=1;
-            while(board[a+c][b+d]!=stone){
-                board[a+c][b+d]=stone;
-                d++;
-            }
-        }
-        if(put_judge6(board,a,b,1,-1,stone)==true){
-            int c=1;
-            int d=-1;
-            while(board[a+c][b+d]!=stone){
-                board[a+c][b+d]=stone;
-                c++;
-                d--;
-            }
-        }
-        if(put_judge8(board,a,b,1,0,stone)==true){
-            int c=1;
-            int d=0;
-            while(board[a+c][b+d]!=stone){
-                board[a+c][b+d]=stone;
-                c++;
-            }
-        }
-        if(put_judge4(board,a,b,1,1,stone)==true){
-            int c=1;
-            int d=1;
-            while(board[a+c][b+d]!=stone){
-                board[a+c][b+d]=stone;
-                c++;
-                d++;
-            }
-        }
+        reverse_direction(board,a,b,-1,-1,stone);
+        reverse_direction(board,a,b,-1,0,stone);
+        reverse_direction(board,a,b,-1,1,stone);
+        reverse_direction(board,a,b,0,-1,stone);
+        reverse_direction(board,a,b,0,1,stone);
+        reverse_direction(board,a,b,1,-1,stone);
+        reverse_direction(board,a,b,1,0,stone);
+        reverse_direction(board,a,b,1,1,stone);
     }
 }

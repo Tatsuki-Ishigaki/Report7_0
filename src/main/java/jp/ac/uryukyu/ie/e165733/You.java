@@ -12,9 +12,8 @@ public class You extends Board {
             number = S;
             S = (int) (Math.random() * 8);
             number_2 = S;
-            boolean s = search(board, number, number_2);
             boolean t = put_judge(board, number, number_2, stone);
-            if (s == true && t == true) {
+            if (t == true) {
                 board[number][number_2] = stone;
                 reverse(board, number, number_2, stone);
             } else {
