@@ -19,6 +19,7 @@ public class BoardTest {
         board[7][7] = "□";
         board[7][5] = "□";
         board[7][4] = "○";
+
         System.out.println("  0 1 2 3 4 5 6 7");
 
         for (int line = 0; line < 8; line++) {    //boardを表示する

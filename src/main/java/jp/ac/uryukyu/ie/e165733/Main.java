@@ -39,69 +39,11 @@ public class Main {
         System.out.println();
 
         if(First == I.getName()){
-            while(end(board,empty)==true) {
-                System.out.printf("自分(%s)のターンです\n", My_stone);
-                I.input(board, My_stone);
-                view(board);
-                System.out.println();
-                if(end(board,empty)==true){
-                    if(I.put_judge2(board,My_stone)==false) {
-                        if (You.put_judge2(board, Your_stone) == false) {
-                            both_pass(board,You.getName(),Your_stone,I.getName(),My_stone);
-                            break;
-                        }
-                    }
-                }
-                while (end(board, empty) == true) {
-                    System.out.println();
-                    System.out.printf("相手(%s)のターンです\n", Your_stone);
-                    You.input(board, Your_stone);
-                    view(board);
-                    System.out.println();
-                    break;
-                }
-                if(end(board,empty)==true){
-                    if(I.put_judge2(board,My_stone)==false) {
-                        if (You.put_judge2(board, Your_stone) == false) {
-                            both_pass(board,I.getName(),My_stone,You.getName(),Your_stone);
-                            break;
-                        }
-                    }
-                }
-            }
+            player(board,I,You,empty,My_stone,Your_stone);
         }else{
-            while (end(board, empty) == true) {
-                System.out.printf("相手(%s)のターンです\n", Your_stone);
-                You.input(board, Your_stone);
-                view(board);
-                System.out.println();
-                if(end(board,empty)==true){
-                    if(I.put_judge2(board,My_stone)==false) {
-                        if (You.put_judge2(board, Your_stone) == false) {
-                            both_pass(board,I.getName(),My_stone,You.getName(),Your_stone);
-                            break;
-                        }
-                    }
-                }
-                while (end(board, empty) == true) {
-                    System.out.println();
-                    System.out.printf("自分(%s)のターンです\n", My_stone);
-                    I.input(board, My_stone);
-                    view(board);
-                    System.out.println();
-                    break;
-                }
-                if(end(board,empty)==true){
-                    if(I.put_judge2(board,My_stone)==false) {
-                        if (You.put_judge2(board, Your_stone) == false) {
-                            both_pass(board,You.getName(),Your_stone,I.getName(),My_stone);
-                            break;
-                        }
-                    }
-                }
-            }
+            player(board,You,I,empty,Your_stone,My_stone);
         }
-        total(board,My_stone,Your_stone);
+        total(board,My_stone,Your_stone,I.getName(),You.getName());
     }
 
     public static void make(String[][] board, String stone_1) {
@@ -159,7 +101,7 @@ public class Main {
         return false;
     }
 
-    public static void total(String[][] board,String My_stone,String Your_stone){
+    public static void total(String[][] board,String My_stone,String Your_stone,String c,String d){
         int I = 0;
         int You = 0;
         for(int a=0;a<8;a++){
@@ -173,27 +115,28 @@ public class Main {
             }
         }
         int total = I+You;
-        System.out.println();
         System.out.printf("%s = %d\n",My_stone,I);
         System.out.printf("%s = %d\n",Your_stone,You);
         System.out.println(total);
         if(You<I){
-            System.out.println("自分の勝ちです");
+            System.out.printf("%sの勝ちです!!",c);
         }else if(I<You){
-            System.out.println("相手の勝ちです");
+            System.out.printf("%sの勝ちです!!",d);
         }else{
             System.out.println("引き分けです");
         }
     }
+
     public static int scan() {
         Scanner scan = new Scanner(System.in);
         int a = scan.nextInt();
-        if(a!=0 && a!=1 && a!=2){
-            System.out.println("0か1か2を選択して下さい");
-            scan();
+        while (a != 0 && a != 1 && a != 2) {
+            System.out.println("0か1か2を入力してください");
+            a = scan.nextInt();
         }
         return a;
     }
+
     public static Board select(int a,Board I,String My_stone){
         if(a==0){
         }else if(a==1){
@@ -212,10 +155,37 @@ public class Main {
             System.out.println();
             return You;
         }else if(a==2) {
-            You = new You("CPU1", Your_stone);
+            You = new You("CPU2", Your_stone);
             return You;
         }
         return You;
+    }
+    public static void player(String[][] board,Board name,Board name2,String empty,String stone,String stone2){
+        while(end(board,empty)==true) {
+            System.out.printf("%s(%s)のターンです\n",name.getName(), stone);
+            name.input(board, stone);
+            view(board);
+            System.out.println();
+            if (end(board, empty) == true) {
+                if (name.put_judge2(board, stone) == false && name2.put_judge2(board, stone2) == false) {
+                    both_pass(board, name2.getName(), stone2,name.getName(),stone);
+                    break;
+                }
+            }
+            while(end(board,empty)==true) {
+                System.out.printf("%s(%s)のターンです\n", name2.getName(), stone2);
+                name2.input(board, stone2);
+                view(board);
+                System.out.println();
+                break;
+            }
+            if (end(board, empty) == true) {
+                if (name.put_judge2(board, stone) == false && name2.put_judge2(board, stone2) == false) {
+                    both_pass(board, name.getName(), stone,name2.getName(),stone2);
+                    break;
+                }
+            }
+        }
     }
     public static void both_pass(String[][] board,String a,String b,String c,String d){
         System.out.printf("%s(%s)のターンです\n", a,b);
