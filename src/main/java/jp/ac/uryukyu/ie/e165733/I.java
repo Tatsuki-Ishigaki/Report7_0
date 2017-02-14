@@ -3,9 +3,9 @@ package jp.ac.uryukyu.ie.e165733;
 public class I extends Board {
     public I (String name, String stone) {super(name,stone);}
 
-    public void input(String[][] board, String stone) {
+    public void input(String[][] board, String stone) {    //ユーザ入力を使って石を置く
 
-        try {
+        try {                                         //入力した場所がボードの範囲外の場合の例外処理
             boolean n = put_judge2(board,stone);
             if(n==true){
                 int number, number_2;

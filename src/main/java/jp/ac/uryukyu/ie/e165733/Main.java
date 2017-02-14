@@ -20,7 +20,7 @@ public class Main {
         System.out.println("Player対CPUなら 0 を入力してください");
         System.out.println("Player対Playerなら 1 を入力してください");
         System.out.println("CPU対CPUなら 2 を入力してください");
-        int scan = scan();
+        int scan = scan(); //ユーザ入力で対戦モードを決める
         I = select(scan,I,My_stone);
         You = select_2(scan,You,Your_stone);
 
@@ -34,19 +34,19 @@ public class Main {
         System.out.printf("%sが先行でゲームスタート！\n",First);
         System.out.println();
         System.out.println("最初の配置はこのようになります");
-        make(board,empty);
-        view(board);
+        make(board,empty); //ボードを初期化＆作成
+        view(board); //ボードを表示
         System.out.println();
 
-        if(First == I.getName()){
+        if(First == I.getName()){     //ゲームを実行する
             player(board,I,You,empty,My_stone,Your_stone);
         }else{
             player(board,You,I,empty,Your_stone,My_stone);
         }
-        total(board,My_stone,Your_stone,I.getName(),You.getName());
+        total(board,My_stone,Your_stone,I.getName(),You.getName()); //勝敗を判定し出力する
     }
 
-    public static void make(String[][] board, String stone_1) {
+    public static void make(String[][] board, String stone_1) {     //ボードを作る
         for (int a = 0; a < 8; a++) {
             for (int b = 0; b < 8; b++) {
                 board[a][b] = stone_1;
@@ -58,7 +58,7 @@ public class Main {
         board[4][3] = "●";
     }
 
-    public static void view(String board[][]) {
+    public static void view(String board[][]) {     //ボードを表示する
         System.out.println("  0 1 2 3 4 5 6 7");
         for (int line = 0; line < 8; line++) {
             System.out.print(line + " ");
@@ -69,7 +69,7 @@ public class Main {
         }
     }
 
-    public static String judge(String a,String b){
+    public static String judge(String a,String b){         //最初にやる人をランダムで判定する
         String c;
         int S = (int)(Math.random()*10);
         if(S<5){
@@ -80,7 +80,7 @@ public class Main {
         return c;
     }
 
-    public static String judge_opposition(String a){
+    public static String judge_opposition(String a){        //最初にやらない人を出力する
         String b;
         if(a=="○"){
             b = "●";
@@ -90,7 +90,7 @@ public class Main {
         return b;
     }
 
-    public static boolean end(String[][] board,String empty){
+    public static boolean end(String[][] board,String empty){         //ボードがからか判定する
         for(int a=0;a<8;a++){
             for(int b=0;b<8;b++){
                 if(board[a][b]==empty){
@@ -101,7 +101,7 @@ public class Main {
         return false;
     }
 
-    public static void total(String[][] board,String My_stone,String Your_stone,String c,String d){
+    public static void total(String[][] board,String My_stone,String Your_stone,String c,String d){  //スコアを出す
         int I = 0;
         int You = 0;
         for(int a=0;a<8;a++){
@@ -127,7 +127,7 @@ public class Main {
         }
     }
 
-    public static int scan() {
+    public static int scan() {         //対戦モードをユーザ入力で選択する
         Scanner scan = new Scanner(System.in);
         int a = scan.nextInt();
         while (a != 0 && a != 1 && a != 2) {
@@ -137,7 +137,7 @@ public class Main {
         return a;
     }
 
-    public static Board select(int a,Board I,String My_stone){
+    public static Board select(int a,Board I,String My_stone){         //ユーザ入力に従いPlayerの種類を決める
         if(a==0){
         }else if(a==1){
             I = new I("Player1",My_stone);
@@ -148,7 +148,7 @@ public class Main {
         }
         return I;
     }
-    public static Board select_2(int a,Board You,String Your_stone){
+    public static Board select_2(int a,Board You,String Your_stone){        //ユーザ入力に従いPlayerの種類を決める
         if(a==0){
         }else if(a==1){
             You = new I("Player2",Your_stone);
@@ -160,6 +160,7 @@ public class Main {
         }
         return You;
     }
+    //ゲームの実行　ボードが空の時かどちらも置けない時実行を終了する
     public static void player(String[][] board,Board name,Board name2,String empty,String stone,String stone2){
         while(end(board,empty)==true) {
             System.out.printf("%s(%s)のターンです\n",name.getName(), stone);
@@ -187,7 +188,7 @@ public class Main {
             }
         }
     }
-    public static void both_pass(String[][] board,String a,String b,String c,String d){
+    public static void both_pass(String[][] board,String a,String b,String c,String d){    //両方パスの場合に出力
         System.out.printf("%s(%s)のターンです\n", a,b);
         System.out.println("パスします");
         view(board);
